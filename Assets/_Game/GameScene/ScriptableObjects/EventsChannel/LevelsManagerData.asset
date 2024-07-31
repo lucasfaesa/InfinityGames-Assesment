@@ -15,3 +15,7 @@ MonoBehaviour:
   <CurrentLevel>k__BackingField: 0
   <LevelsPrefabList>k__BackingField:
   - {fileID: 6803212471842341632, guid: 1b426185624b93640bd5c9f6b088817f, type: 3}
+  - {fileID: 7627586865604607948, guid: 897ab85cf04762f45a41ba4ec00dfa54, type: 3}
+  - {fileID: 7439487922126447491, guid: 2153ea3fb6951fa4691897fe354d2e86, type: 3}
+  - {fileID: 6281398886928435009, guid: 28307a24485da9941b1eee3f0e2aa0c4, type: 3}
+  - {fileID: 3368675150149361414, guid: affc8149ddf94ba4b863a90e6b67d718, type: 3}

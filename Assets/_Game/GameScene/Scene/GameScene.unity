@@ -421,7 +421,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameEventsChannel: {fileID: 11400000, guid: 2b1808f28df2b0d4ca52c2292a7acea3, type: 2}
   levelEventsChannel: {fileID: 11400000, guid: 3dd537151b3247f418140b96e8aaba57, type: 2}
-  levelManagerData: {fileID: 11400000, guid: 48d139716a987b94a8d665fc08b1636f, type: 2}
+  levelsManagerData: {fileID: 11400000, guid: 48d139716a987b94a8d665fc08b1636f, type: 2}
   nodeEventChannel: {fileID: 11400000, guid: 0f193312a8a8f574aba263a0f2313341, type: 2}
 --- !u!4 &1756302157
 Transform:
