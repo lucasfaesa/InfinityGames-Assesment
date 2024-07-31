@@ -66,12 +66,14 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
     {
         if (_endPointBehaviors.TrueForAll(x => x.IsNodeConnected))
         {
+            _nodeConnected = true;
             OnNodeConnected();
         }
         else
         {
             if (!_nodeConnected) return;
             
+            _nodeConnected = false;
             OnNodeDisconnected();
         }
     }
