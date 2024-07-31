@@ -17,12 +17,4 @@ public class Level : MonoBehaviour
         if(levelSettingsSo.RandomizeNodesRotationOnStart)
             _levelNodes.ForEach(x=>x.RandomizeRotationAtStart());
     }
-
-    //TODO remove later
-    private IEnumerator Start()
-    {
-        yield return new WaitForSeconds(2f);
-        
-        
-    }
 }
