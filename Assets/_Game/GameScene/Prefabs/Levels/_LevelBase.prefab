@@ -30,9 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 998018515040206240}
-  - {fileID: 4856257737719637731}
-  - {fileID: 1435236970676526396}
+  - {fileID: 6424486399355170522}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5991574322171442096
@@ -47,15 +45,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a49d9e547b7f5d4f979dee23e675880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEventsChannel: {fileID: 11400000, guid: 2b1808f28df2b0d4ca52c2292a7acea3, type: 2}
   levelSettingsSo: {fileID: 0}
+--- !u!1 &4632647239434618744
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6424486399355170522}
+  m_Layer: 0
+  m_Name: Level
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6424486399355170522
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4632647239434618744}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 998018515040206240}
+  - {fileID: 4856257737719637731}
+  - {fileID: 1435236970676526396}
+  m_Father: {fileID: 3151563218034146152}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4156524125049802959
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 3151563218034146152}
+    m_TransformParent: {fileID: 6424486399355170522}
     m_Modifications:
     - target: {fileID: 3983141712760795898, guid: ba9e61e079b840d45bf233ee61f124d0, type: 3}
       propertyPath: m_Name
@@ -129,7 +160,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 3151563218034146152}
+    m_TransformParent: {fileID: 6424486399355170522}
     m_Modifications:
     - target: {fileID: 1003565681623431413, guid: 76f96a2ece6ac6949b225577229e1db0, type: 3}
       propertyPath: m_Name
@@ -199,7 +230,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 3151563218034146152}
+    m_TransformParent: {fileID: 6424486399355170522}
     m_Modifications:
     - target: {fileID: 2336282037629596199, guid: ba9e61e079b840d45bf233ee61f124d0, type: 3}
       propertyPath: m_LocalPosition.x
