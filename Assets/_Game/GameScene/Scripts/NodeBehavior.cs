@@ -5,6 +5,7 @@ using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Random = UnityEngine.Random;
 
 public class NodeBehavior : MonoBehaviour, IPointerClickHandler
 {
@@ -22,6 +23,8 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
 
     private List<EndPointBehavior> _endPointBehaviors = new();
     
+    public bool RandomizeAtStart { get; set; }
+    public bool GameStarted { get; set; }
     
     private void Awake()
     {
@@ -34,6 +37,7 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
     private void OnEnable()
     {
         SubscribeToEndPointColliderTriggerEvents();
+        Debug.Log($"Subscribed: {this.gameObject.name}");
     }
 
     private void OnDisable()
@@ -44,8 +48,26 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
     void Start()
     {
         nodeSprite.color = _notConnectedColor;
+        
+        //if(RandomizeAtStart)
+        //    RandomizeRotation();
     }
 
+    public void RandomizeRotation()
+    {
+        int randomNumber = Random.Range(0, 4); //4 exclusive, so 0 to 3
+        int rotationAmount = randomNumber * 90;
+
+        var nodeLocalRotation = nodeTransform.localRotation;
+
+        nodeTransform.localRotation = Quaternion.Euler(
+            new Vector3(nodeLocalRotation.x,
+                nodeLocalRotation.y,
+                nodeLocalRotation.z + rotationAmount));
+        
+        Debug.Log($"Randomized: {this.gameObject.name}");
+    }
+    
     public void OnPointerClick(PointerEventData eventData)
     {
         if (_animating) return;
@@ -66,25 +88,35 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
     {
         if (_endPointBehaviors.TrueForAll(x => x.IsNodeConnected))
         {
-            _nodeConnected = true;
             OnNodeConnected();
         }
         else
         {
-            if (!_nodeConnected) return;
-            
-            _nodeConnected = false;
+
             OnNodeDisconnected();
         }
     }
     
     public void OnNodeConnected()
     {
+        if (!GameStarted)
+        {
+            RandomizeRotation();
+            return;
+        }
+
+        if (_nodeConnected) return;
+        
+        _nodeConnected = true;
         nodeSprite.DOColor(_connectedColor, 0.5f).SetEase(Ease.InOutSine);
+        Debug.Log($"Node Connected: {this.gameObject.name}");
     }
 
     public void OnNodeDisconnected()
     {
+        if (!_nodeConnected) return;
+        
+        _nodeConnected = false;
         nodeSprite.DOColor(_notConnectedColor, 0.5f).SetEase(Ease.InOutSine);
     }
     
