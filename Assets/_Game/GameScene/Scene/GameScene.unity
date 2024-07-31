@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a49d9e547b7f5d4f979dee23e675880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomizeNodesOnAwake: 1
+  levelSettingsSo: {fileID: 11400000, guid: 5f2a007f1ddf7cc4aa68ae803ae008af, type: 2}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

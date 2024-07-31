@@ -1,35 +1,28 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Level : MonoBehaviour
 {
+    [SerializeField] private LevelSettingsSO levelSettingsSo;
 
-    [SerializeField] private bool randomizeNodesOnAwake;
+    private List<NodeBehavior> _levelNodes = new();
     
     private void Awake()
     {
-        if (randomizeNodesOnAwake)
-        {
-            var list = GetComponentsInChildren<NodeBehavior>();
-
-            foreach (var nodeBehavior in list)
-            {
-                nodeBehavior.RandomizeAtStart = true;
-            }
-        }
+        _levelNodes = GetComponentsInChildren<NodeBehavior>().ToList();
+        
+        if(levelSettingsSo.RandomizeNodesRotationOnStart)
+            _levelNodes.ForEach(x=>x.RandomizeRotationAtStart());
     }
 
+    //TODO remove later
     private IEnumerator Start()
     {
         yield return new WaitForSeconds(2f);
         
-        var list = GetComponentsInChildren<NodeBehavior>();
-
-        foreach (var nodeBehavior in list)
-        {
-            nodeBehavior.GameStarted = true;
-        }
+        
     }
 }

@@ -17,13 +17,13 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
     
     private bool _animating;
     private bool _nodeConnected;
+    private bool _randomizeRotationAtStart;
     
     private readonly Color32 _notConnectedColor = new Color32(123,123,123,255);
     private readonly Color32 _connectedColor = new Color32(255,255,255,255);
 
     private List<EndPointBehavior> _endPointBehaviors = new();
-    
-    public bool RandomizeAtStart { get; set; }
+
     public bool GameStarted { get; set; }
     
     private void Awake()
@@ -45,59 +45,59 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
         UnsubscribeToEndPointColliderTriggerEvents();
     }
 
+    public void RandomizeRotationAtStart()
+    {
+        _randomizeRotationAtStart = true;
+    }
+
+
     void Start()
     {
         nodeSprite.color = _notConnectedColor;
         
-        //if(RandomizeAtStart)
-        //    RandomizeRotation();
+        if(_randomizeRotationAtStart)
+            RandomizeRotation();
     }
 
-    public void RandomizeRotation()
+    private void RandomizeRotation()
     {
         int randomNumber = Random.Range(0, 4); //4 exclusive, so 0 to 3
         int rotationAmount = randomNumber * 90;
 
-        var nodeLocalRotation = nodeTransform.localRotation;
-
-        nodeTransform.localRotation = Quaternion.Euler(
-            new Vector3(nodeLocalRotation.x,
-                nodeLocalRotation.y,
-                nodeLocalRotation.z + rotationAmount));
+        RotateNode(rotationAmount, 0.2f);
         
         Debug.Log($"Randomized: {this.gameObject.name}");
     }
     
     public void OnPointerClick(PointerEventData eventData)
     {
+        RotateNode();
+    }
+
+    private void RotateNode(float rotateAmount = 90f, float duration = 0.4f)
+    {
         if (_animating) return;
         
         _animating = true;
         var currentLocalRotation = nodeTransform.localRotation.eulerAngles;
-        var newRotation = new Vector3(currentLocalRotation.x, currentLocalRotation.y, currentLocalRotation.z + 90f);
+        var newRotation = new Vector3(currentLocalRotation.x, currentLocalRotation.y, currentLocalRotation.z + rotateAmount);
         
-        nodeTransform.DOLocalRotate(newRotation, 0.4f, RotateMode.FastBeyond360).SetEase(Ease.OutBack)
-                .OnComplete(() =>
-                {
-                    _animating = false;
-                });
-        
+        nodeTransform.DOLocalRotate(newRotation, duration, RotateMode.FastBeyond360).SetEase(Ease.OutBack)
+            .OnComplete(() =>
+            {
+                _animating = false;
+            });
     }
 
     public void OnEndpointConnectionChanged(bool _, EndPointBehavior __)
     {
         if (_endPointBehaviors.TrueForAll(x => x.IsNodeConnected))
-        {
             OnNodeConnected();
-        }
         else
-        {
-
             OnNodeDisconnected();
-        }
     }
     
-    public void OnNodeConnected()
+    private void OnNodeConnected()
     {
         if (!GameStarted)
         {
@@ -112,7 +112,7 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
         Debug.Log($"Node Connected: {this.gameObject.name}");
     }
 
-    public void OnNodeDisconnected()
+    private void OnNodeDisconnected()
     {
         if (!_nodeConnected) return;
         
@@ -124,7 +124,7 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
     {
         foreach (var endPointColliderBehavior in _endPointBehaviors)
         {
-            endPointColliderBehavior.endPointConnected += OnEndpointConnectionChanged;
+            endPointColliderBehavior.EndPointConnected += OnEndpointConnectionChanged;
         }
     }
     
@@ -132,7 +132,7 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
     {
         foreach (var endPointColliderBehavior in _endPointBehaviors)
         {
-            endPointColliderBehavior.endPointConnected -= OnEndpointConnectionChanged;
+            endPointColliderBehavior.EndPointConnected -= OnEndpointConnectionChanged;
         }
     }
 }
