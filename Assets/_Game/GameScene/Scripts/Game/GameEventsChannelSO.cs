@@ -13,6 +13,7 @@ public class GameEventsChannelSO : ScriptableObject
     
     public void OnGamePreparingToStart()
     {
+        Debug.Log("Game Preparing to start");
         GamePreparingToStart?.Invoke();
     }
 
@@ -24,11 +25,13 @@ public class GameEventsChannelSO : ScriptableObject
 
     public void OnGamePreparingToEnd()
     {
+        Debug.Log("Game Preparing to End");
         GamePreparingToEnd?.Invoke();
     }
 
     public void OnGameEnded()
     {
+        Debug.Log("Game Ended");
         GameEnded?.Invoke();
     }
     

@@ -191,6 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7baaa4b0423359549a649e892ad764e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nodeEventChannel: {fileID: 11400000, guid: 0f193312a8a8f574aba263a0f2313341, type: 2}
   nodeTransform: {fileID: 1921983607310564751}
   nodeSprite: {fileID: 7959565917392644722}
   endPointCollidersParent: {fileID: 105836957287414437}

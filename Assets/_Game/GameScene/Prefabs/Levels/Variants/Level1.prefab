@@ -57,6 +57,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 5f2a007f1ddf7cc4aa68ae803ae008af, type: 2}
     - target: {fileID: 5991574322171442096, guid: 9b2fde108a3bc2c4aa26086f668d794b, type: 3}
+      propertyPath: nodeEventChannel
+      value: 
+      objectReference: {fileID: 11400000, guid: 0f193312a8a8f574aba263a0f2313341, type: 2}
+    - target: {fileID: 5991574322171442096, guid: 9b2fde108a3bc2c4aa26086f668d794b, type: 3}
       propertyPath: gameEventsChannel
       value: 
       objectReference: {fileID: 11400000, guid: 2b1808f28df2b0d4ca52c2292a7acea3, type: 2}

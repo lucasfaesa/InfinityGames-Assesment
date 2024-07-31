@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "LevelsManagerData", menuName = "ScriptableObjects/Level/LevelsManagerData")]
-public class LevelManagerDataSO : ScriptableObject
+public class LevelsManagerDataSO : ScriptableObject
 {
     [field: SerializeField] public int CurrentLevel { get; set; } = 0;
     [field:Space] 

@@ -34,4 +34,10 @@ public class Level : MonoBehaviour
     {
         _levelNodes.ForEach(x=>x.OnGameStarted());
     }
+
+    public bool AllNodesConnected()
+    {
+        return _levelNodes.TrueForAll(x => x.GetConnectionStatus());
+    }
+    
 }

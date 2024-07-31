@@ -9,6 +9,8 @@ using Random = UnityEngine.Random;
 
 public class NodeBehavior : MonoBehaviour, IPointerClickHandler
 {
+    [Header("SOs")] 
+    [SerializeField] private NodeEventChannelSO nodeEventChannel;
     [Header("Components")] 
     [SerializeField] private Transform nodeTransform;
     [SerializeField] private SpriteRenderer nodeSprite;
@@ -90,7 +92,7 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
             });
     }
 
-    public void OnEndpointConnectionChanged(bool _, EndPointBehavior __)
+    private void OnEndpointConnectionChanged(bool _, EndPointBehavior __)
     {
         if (_endPointBehaviors.TrueForAll(x => x.IsNodeConnected))
             OnNodeConnected();
@@ -110,6 +112,7 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
         
         _nodeConnected = true;
         nodeSprite.DOColor(_connectedColor, 0.5f).SetEase(Ease.InOutSine);
+        nodeEventChannel.OnNodeConnectionStatusChanged(true, this);
     }
 
     private void OnNodeDisconnected()
@@ -118,6 +121,12 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
         
         _nodeConnected = false;
         nodeSprite.DOColor(_notConnectedColor, 0.5f).SetEase(Ease.InOutSine);
+        nodeEventChannel.OnNodeConnectionStatusChanged(false, this);
+    }
+
+    public bool GetConnectionStatus()
+    {
+        return _nodeConnected;
     }
     
     private void SubscribeToEndPointColliderTriggerEvents()
