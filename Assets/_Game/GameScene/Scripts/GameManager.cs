@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private GameDataSO gameData;
+    [SerializeField] private GameEventsChannelSO gameEventsChannel;
     
     IEnumerator Start()
     {
         yield return new WaitForSeconds(2f);
         
-        gameData.OnGameStarted();    
+        gameEventsChannel.OnGameStarted();    
     }
 
 }

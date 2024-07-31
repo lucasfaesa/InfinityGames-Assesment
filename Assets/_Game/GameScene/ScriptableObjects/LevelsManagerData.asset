@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d9256be5a06cca4e9423bc9da6c75fe, type: 3}
-  m_Name: GameData
+  m_Script: {fileID: 11500000, guid: 78fe997ab818d5242bd6976ac964537b, type: 3}
+  m_Name: LevelsManagerData
   m_EditorClassIdentifier: 
   <CurrentLevel>k__BackingField: 0
   <LevelsPrefabList>k__BackingField:
