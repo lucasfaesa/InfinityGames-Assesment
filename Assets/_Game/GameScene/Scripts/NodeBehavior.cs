@@ -18,13 +18,13 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
     private bool _animating;
     private bool _nodeConnected;
     private bool _randomizeRotationAtStart;
+    private bool _gameStarted;
     
     private readonly Color32 _notConnectedColor = new Color32(123,123,123,255);
     private readonly Color32 _connectedColor = new Color32(255,255,255,255);
 
     private List<EndPointBehavior> _endPointBehaviors = new();
 
-    public bool GameStarted { get; set; }
     
     private void Awake()
     {
@@ -37,7 +37,6 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
     private void OnEnable()
     {
         SubscribeToEndPointColliderTriggerEvents();
-        Debug.Log($"Subscribed: {this.gameObject.name}");
     }
 
     private void OnDisable()
@@ -49,8 +48,7 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
     {
         _randomizeRotationAtStart = true;
     }
-
-
+    
     void Start()
     {
         nodeSprite.color = _notConnectedColor;
@@ -59,14 +57,17 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
             RandomizeRotation();
     }
 
+    public void OnGameStarted()
+    {
+        _gameStarted = true;
+    }
+    
     private void RandomizeRotation()
     {
         int randomNumber = Random.Range(0, 4); //4 exclusive, so 0 to 3
         int rotationAmount = randomNumber * 90;
 
         RotateNode(rotationAmount, 0.2f);
-        
-        Debug.Log($"Randomized: {this.gameObject.name}");
     }
     
     public void OnPointerClick(PointerEventData eventData)
@@ -99,7 +100,7 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
     
     private void OnNodeConnected()
     {
-        if (!GameStarted)
+        if (!_gameStarted)
         {
             RandomizeRotation();
             return;
@@ -109,7 +110,6 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
         
         _nodeConnected = true;
         nodeSprite.DOColor(_connectedColor, 0.5f).SetEase(Ease.InOutSine);
-        Debug.Log($"Node Connected: {this.gameObject.name}");
     }
 
     private void OnNodeDisconnected()
