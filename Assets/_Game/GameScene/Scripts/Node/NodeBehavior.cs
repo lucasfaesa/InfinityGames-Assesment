@@ -21,6 +21,8 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
     private bool _nodeConnected;
     private bool _randomizeRotationAtStart;
     private bool _gameStarted;
+    //TODO remove this
+    private bool _contacting;
     
     private readonly Color32 _notConnectedColor = new Color32(123,123,123,255);
     private readonly Color32 _connectedColor = new Color32(255,255,255,255);
@@ -66,10 +68,14 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
     
     private void RandomizeRotation()
     {
-        int randomNumber = Random.Range(0, 4); //4 exclusive, so 0 to 3
+        int randomNumber = Random.Range(1, 4); //4 exclusive, so 1 to 3
         int rotationAmount = randomNumber * 90;
-
-        RotateNode(rotationAmount, 0.2f);
+        
+        RotateNode(rotationAmount, 0.1f, () =>
+        {
+            if(_contacting)
+                RandomizeRotation();
+        });
     }
     
     public void OnPointerClick(PointerEventData eventData)
@@ -77,7 +83,7 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
         RotateNode();
     }
 
-    private void RotateNode(float rotateAmount = 90f, float duration = 0.4f)
+    private void RotateNode(float rotateAmount = 90f, float duration = 0.4f, Action rotationCompleted = null)
     {
         if (_animating) return;
         
@@ -89,6 +95,7 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
             .OnComplete(() =>
             {
                 _animating = false;
+                rotationCompleted?.Invoke();
             });
     }
 
@@ -104,19 +111,24 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
     {
         if (!_gameStarted)
         {
+            Debug.Log("Entered Here");
+            _contacting = true;
             RandomizeRotation();
             return;
         }
-
+        
         if (_nodeConnected) return;
         
         _nodeConnected = true;
+        
         nodeSprite.DOColor(_connectedColor, 0.5f).SetEase(Ease.InOutSine);
         nodeEventChannel.OnNodeConnectionStatusChanged(true, this);
     }
 
     private void OnNodeDisconnected()
     {
+        _contacting = false;
+        
         if (!_nodeConnected) return;
         
         _nodeConnected = false;

@@ -7,7 +7,6 @@ using UnityEngine;
 public class Level : MonoBehaviour
 {
     [Header("SOs")] 
-    [SerializeField] private GameEventsChannelSO gameEventsChannel;
     [SerializeField] private LevelSettingsSO levelSettingsSo;
     
     private List<NodeBehavior> _levelNodes = new();
@@ -19,18 +18,8 @@ public class Level : MonoBehaviour
         if(levelSettingsSo.RandomizeNodesRotationOnStart)
             _levelNodes.ForEach(x=>x.RandomizeRotationAtStart());
     }
-
-    private void OnEnable()
-    {
-        gameEventsChannel.GameStarted += OnGameStarted;
-    }
-
-    private void OnDisable()
-    {
-        gameEventsChannel.GameStarted -= OnGameStarted;
-    }
-
-    private void OnGameStarted()
+    
+    public void OnGameStarted()
     {
         _levelNodes.ForEach(x=>x.OnGameStarted());
     }

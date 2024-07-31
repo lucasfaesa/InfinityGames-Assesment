@@ -18,18 +18,26 @@ public class GameManager : MonoBehaviour
         levelEventsChannel.AllNodesConnected -= OnAllNodesConnected;
     }
 
-    IEnumerator Start()
+    void Start()
     {
-        gameEventsChannel.OnGamePreparingToStart();
-        
-        yield return new WaitForSeconds(2f);
-        
-        gameEventsChannel.OnGameStarted();    
+        StartCoroutine(StartGame());
     }
     
     private void OnAllNodesConnected()
     {
         gameEventsChannel.OnGameEnded();
+
+        StartCoroutine(StartGame());
+    }
+
+    //TODO Remove this
+    private IEnumerator StartGame()
+    {
+        gameEventsChannel.OnGamePreparingToStart();
+        
+        yield return new WaitForSeconds(1f);
+        
+        gameEventsChannel.OnGameStarted();
     }
 
 }
