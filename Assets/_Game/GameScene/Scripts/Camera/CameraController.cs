@@ -36,6 +36,6 @@ public class CameraController : MonoBehaviour
 
     private void OffsetCameraUp()
     {
-        Sequence offset = DOTween.Sequence().Append(mainCamera.transform.DOMoveY(-0.89f, 0.5f).SetEase(Ease.InOutSine)).PrependInterval(0.3f);
+       DOTween.Sequence().Append(mainCamera.transform.DOMoveY(-0.89f, 0.5f).SetEase(Ease.InOutSine)).PrependInterval(0.3f);
     }
 }
