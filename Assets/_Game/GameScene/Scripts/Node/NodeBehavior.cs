@@ -109,9 +109,9 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
     
     private void OnNodeConnected()
     {
+        //TODO CHANGE THIS
         if (!_gameStarted)
         {
-            Debug.Log("Entered Here");
             _contacting = true;
             RandomizeRotation();
             return;

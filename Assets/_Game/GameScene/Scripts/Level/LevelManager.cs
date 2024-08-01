@@ -37,7 +37,9 @@ public class LevelManager : MonoBehaviour
         if(_currentLevel?.gameObject != null)
             Destroy(_currentLevel.gameObject);
         
-        _currentLevel = Instantiate(levelsManagerData.GetCurrentLevel()); 
+        _currentLevel = Instantiate(levelsManagerData.GetCurrentLevel());
+        
+        levelEventsChannel.OnNewLevelLoaded(_currentLevel);
     }
     private void OnGameStarted()
     {

@@ -5,38 +5,28 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("SOs")]
     [SerializeField] private GameEventsChannelSO gameEventsChannel;
     [SerializeField] private LevelEventsChannelSO levelEventsChannel;
+    [SerializeField] private CameraEventsChannelSO cameraEventsChannel;
 
     private void OnEnable()
     {
-        levelEventsChannel.AllNodesConnected += OnAllNodesConnected;
+        cameraEventsChannel.CameraSizeAnimationEnded += StartGame;
     }
 
     private void OnDisable()
     {
-        levelEventsChannel.AllNodesConnected -= OnAllNodesConnected;
+        cameraEventsChannel.CameraSizeAnimationEnded -= StartGame;
     }
 
     void Start()
     {
-        StartCoroutine(StartGame());
-    }
-    
-    private void OnAllNodesConnected()
-    {
-        gameEventsChannel.OnGameEnded();
-
-        StartCoroutine(StartGame());
-    }
-
-    //TODO Remove this
-    private IEnumerator StartGame()
-    {
         gameEventsChannel.OnGamePreparingToStart();
-        
-        yield return new WaitForSeconds(1f);
-        
+    }
+
+    private void StartGame()
+    {
         gameEventsChannel.OnGameStarted();
     }
 

@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81e35c9aaead9a84bb40f26cf0b8f729, type: 3}
-  m_Name: Level2
+  m_Script: {fileID: 11500000, guid: eba96ff956b997a44bfa29126b96ecd2, type: 3}
+  m_Name: CameraEventsChannel
   m_EditorClassIdentifier: 
-  <RandomizeNodesRotationOnStart>k__BackingField: 1
-  preferredCameraSize: 4

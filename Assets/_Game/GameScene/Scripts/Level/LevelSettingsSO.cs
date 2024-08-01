@@ -6,4 +6,6 @@ using UnityEngine;
 public class LevelSettingsSO : ScriptableObject
 {
     [field:SerializeField] public bool RandomizeNodesRotationOnStart { get; set; }
+
+    [field: SerializeField] public float PreferredCameraSize { get; set; } = 5;
 }

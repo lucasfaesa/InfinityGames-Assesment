@@ -28,5 +28,10 @@ public class Level : MonoBehaviour
     {
         return _levelNodes.TrueForAll(x => x.GetConnectionStatus());
     }
+
+    public LevelSettingsSO GetLevelSettings()
+    {
+        return levelSettingsSo;
+    }
     
 }

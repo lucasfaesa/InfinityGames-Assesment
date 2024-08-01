@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Level3
   m_EditorClassIdentifier: 
   <RandomizeNodesRotationOnStart>k__BackingField: 1
+  preferredCameraSize: 5.61
