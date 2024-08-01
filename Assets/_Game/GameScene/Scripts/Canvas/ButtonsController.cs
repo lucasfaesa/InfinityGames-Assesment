@@ -9,8 +9,10 @@ public class ButtonsController : MonoBehaviour
 {
     [Header("SOs")] 
     [SerializeField] private AnimationsEventChannelSO animationsEventChannel;
+    [SerializeField] private UIEventsChannelSO uiEventsChannel;
 
     [Header("Components")] 
+    [SerializeField] private CanvasGroup uiCanvasCanvasGroup;
     [SerializeField] private RectTransform nextAndLeaveButtonsParent;
     private void OnEnable()
     {
@@ -35,6 +37,15 @@ public class ButtonsController : MonoBehaviour
 
     public void ReturnToMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        //subscribing and unsubscribing directly
+        void OnFadeInCompleted()
+        {
+            uiEventsChannel.FadeInCompleted -= OnFadeInCompleted;
+            SceneManager.LoadScene("MainMenu");
+        }
+        uiEventsChannel.FadeInCompleted += OnFadeInCompleted;
+        
+        
+        uiEventsChannel.OnFadeInStarted();
     }
 }

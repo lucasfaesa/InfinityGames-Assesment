@@ -5,20 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [Header("SOs")] 
+    [SerializeField] private UIEventsChannelSO uiEventsChannel;
 
     public void GoToGameScene()
     {
-        SceneManager.LoadScene("GameScene");
+        void DoFadeIn()
+        {
+            uiEventsChannel.FadeInCompleted -= DoFadeIn;
+            SceneManager.LoadScene("GameScene");
+        }
+
+        uiEventsChannel.FadeInCompleted += DoFadeIn;
+        
+        uiEventsChannel.OnFadeInStarted();
+
     }
 }
