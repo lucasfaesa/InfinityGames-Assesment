@@ -55,8 +55,7 @@ public class LevelManager : MonoBehaviour
                 levelsManagerData.IncrementLevel();
             }
             
-            levelEventsChannel.OnAllNodesConnected();
-            
+            levelEventsChannel.OnLevelFinished();
             //TODO Remove Later
 
         }

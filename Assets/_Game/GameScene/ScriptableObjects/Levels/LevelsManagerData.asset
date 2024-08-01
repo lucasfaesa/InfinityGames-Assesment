@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78fe997ab818d5242bd6976ac964537b, type: 3}
   m_Name: LevelsManagerData
   m_EditorClassIdentifier: 
-  <CurrentLevel>k__BackingField: 0
+  <CurrentLevel>k__BackingField: 3
   <LevelsPrefabList>k__BackingField:
   - {fileID: 6803212471842341632, guid: 1b426185624b93640bd5c9f6b088817f, type: 3}
   - {fileID: 7627586865604607948, guid: 897ab85cf04762f45a41ba4ec00dfa54, type: 3}

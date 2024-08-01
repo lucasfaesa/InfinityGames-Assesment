@@ -5,17 +5,21 @@ using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering.Universal;
 using Random = UnityEngine.Random;
 
 public class NodeBehavior : MonoBehaviour, IPointerClickHandler
 {
     [Header("SOs")] 
     [SerializeField] private NodeEventChannelSO nodeEventChannel;
+    [SerializeField] private LevelEventsChannelSO levelEventsChannel;
     [Header("Components")] 
     [SerializeField] private Transform nodeTransform;
     [SerializeField] private SpriteRenderer nodeSprite;
     [Space]
     [SerializeField] private GameObject endPointCollidersParent;
+    [Space] 
+    [SerializeField] private Light2D nodeLight;
     
     private bool _animating;
     private bool _nodeConnected;
@@ -23,12 +27,15 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
     private bool _gameStarted;
     //TODO remove this
     private bool _contacting;
+
+    private float _minLightIntensity = 0.36f;
+    private float _maxLightIntensity = 0.6f;
     
     private readonly Color32 _notConnectedColor = new Color32(123,123,123,255);
     private readonly Color32 _connectedColor = new Color32(255,255,255,255);
 
     private List<EndPointBehavior> _endPointBehaviors = new();
-
+    
     
     private void Awake()
     {
@@ -40,11 +47,13 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
 
     private void OnEnable()
     {
+        levelEventsChannel.LevelFinished += OnLevelFinished;
         SubscribeToEndPointColliderTriggerEvents();
     }
 
     private void OnDisable()
     {
+        levelEventsChannel.LevelFinished -= OnLevelFinished;
         UnsubscribeToEndPointColliderTriggerEvents();
     }
 
@@ -139,6 +148,22 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
     public bool GetConnectionStatus()
     {
         return _nodeConnected;
+    }
+
+    private void OnLevelFinished()
+    {
+        if (nodeLight)
+        {
+            nodeLight.enabled = true;
+            FlickLight();
+        }
+    }
+
+    private void FlickLight()
+    {
+        float randomIntensity = Random.Range(_minLightIntensity, _maxLightIntensity);
+        DOTween.To(x => nodeLight.intensity = x, nodeLight.intensity, randomIntensity, 0.3f)
+            .OnComplete(FlickLight);
     }
     
     private void SubscribeToEndPointColliderTriggerEvents()

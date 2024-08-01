@@ -192,9 +192,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nodeEventChannel: {fileID: 11400000, guid: 0f193312a8a8f574aba263a0f2313341, type: 2}
+  levelEventsChannel: {fileID: 11400000, guid: 3dd537151b3247f418140b96e8aaba57, type: 2}
   nodeTransform: {fileID: 1921983607310564751}
   nodeSprite: {fileID: 7959565917392644722}
   endPointCollidersParent: {fileID: 105836957287414437}
+  nodeLight: {fileID: 0}
 --- !u!1 &8034967807787987782
 GameObject:
   m_ObjectHideFlags: 0
