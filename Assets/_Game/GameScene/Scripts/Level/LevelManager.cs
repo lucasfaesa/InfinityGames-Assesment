@@ -12,11 +12,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private NodeEventChannelSO nodeEventChannel;
     
     private Level _currentLevel;
-
-    private void Awake()
-    {
-        levelsManagerData.Reset();
-    }
+    private bool _levelFinished;
 
     private void OnEnable()
     {
@@ -30,6 +26,8 @@ public class LevelManager : MonoBehaviour
         gameEventsChannel.GamePreparingToStart -= OnGamePreparingToStart;
         gameEventsChannel.GameStarted -= OnGameStarted;
         nodeEventChannel.NodeConnectionStatusChanged -= OnNodeConnectionStatusChanged;
+        
+        levelsManagerData.Reset();
     }
 
     private void OnGamePreparingToStart()
@@ -48,8 +46,10 @@ public class LevelManager : MonoBehaviour
     
     private void OnNodeConnectionStatusChanged(bool _, NodeBehavior __)
     {
-        if (_currentLevel.AllNodesConnected())
+        if (_currentLevel.AllNodesConnected() && !_levelFinished)
         {
+            _levelFinished = true;
+            
             if (levelsManagerData.CheckIfNextLevelExists())
             {
                 levelsManagerData.IncrementLevel();

@@ -33,5 +33,9 @@ public class LevelsManagerDataSO : ScriptableObject
     public void Reset()
     {
         _reachedLastLevel = false;
+        
+        #if UNITY_EDITOR
+            CurrentLevel = 0;
+        #endif
     }
 }

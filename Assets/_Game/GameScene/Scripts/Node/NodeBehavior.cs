@@ -29,7 +29,7 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
     private bool _contacting;
 
     private float _minLightIntensity = 0.36f;
-    private float _maxLightIntensity = 0.6f;
+    private float _maxLightIntensity = 0.7f;
     
     private readonly Color32 _notConnectedColor = new Color32(123,123,123,255);
     private readonly Color32 _connectedColor = new Color32(255,255,255,255);
@@ -82,8 +82,8 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
         
         RotateNode(rotationAmount, 0.1f, () =>
         {
-            if(_contacting)
-                RandomizeRotation();
+            //if(_contacting)
+            //    RandomizeRotation();
         });
     }
     
@@ -121,8 +121,8 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
         //TODO CHANGE THIS
         if (!_gameStarted)
         {
-            _contacting = true;
-            RandomizeRotation();
+           // _contacting = true;
+           // RandomizeRotation();
             return;
         }
         
@@ -136,7 +136,7 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
 
     private void OnNodeDisconnected()
     {
-        _contacting = false;
+        //_contacting = false;
         
         if (!_nodeConnected) return;
         
@@ -162,7 +162,7 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
     private void FlickLight()
     {
         float randomIntensity = Random.Range(_minLightIntensity, _maxLightIntensity);
-        DOTween.To(x => nodeLight.intensity = x, nodeLight.intensity, randomIntensity, 0.3f)
+        DOTween.To(x => nodeLight.intensity = x, nodeLight.intensity, randomIntensity, 0.2f)
             .OnComplete(FlickLight);
     }
     
