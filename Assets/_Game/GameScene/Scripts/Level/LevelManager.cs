@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private LevelEventsChannelSO levelEventsChannel;
     [SerializeField] private LevelsManagerDataSO levelsManagerData;
     [SerializeField] private NodeEventChannelSO nodeEventChannel;
+    [SerializeField] private UIEventsChannelSO uiEventsChannel;
     
     private Level _currentLevel;
     private bool _levelFinished;
@@ -17,14 +18,14 @@ public class LevelManager : MonoBehaviour
     private void OnEnable()
     {
         gameEventsChannel.GamePreparingToStart += OnGamePreparingToStart;
-        gameEventsChannel.GameStarted += OnGameStarted;
+        levelEventsChannel.RequestToLoadNextLevel += OnLoadNextLevel;
         nodeEventChannel.NodeConnectionStatusChanged += OnNodeConnectionStatusChanged;
     }
 
     private void OnDisable()
     {
         gameEventsChannel.GamePreparingToStart -= OnGamePreparingToStart;
-        gameEventsChannel.GameStarted -= OnGameStarted;
+        levelEventsChannel.RequestToLoadNextLevel -= OnLoadNextLevel;
         nodeEventChannel.NodeConnectionStatusChanged -= OnNodeConnectionStatusChanged;
         
         levelsManagerData.Reset();
@@ -32,15 +33,29 @@ public class LevelManager : MonoBehaviour
 
     private void OnGamePreparingToStart()
     {
+        InstantiateLevelNodes();
+        
+        levelEventsChannel.OnNewLevelLoaded(_currentLevel);
+    }
+
+    private void OnLoadNextLevel()
+    {
+        uiEventsChannel.OnFadeOutStarted();
+        
+        InstantiateLevelNodes();
+        
+        levelEventsChannel.OnNewLevelLoaded(_currentLevel);
+    }
+
+    private void InstantiateLevelNodes()
+    {
+        _levelFinished = false;
+        
         if(_currentLevel?.gameObject != null)
             Destroy(_currentLevel.gameObject);
         
         _currentLevel = Instantiate(levelsManagerData.GetCurrentLevel());
         
-        levelEventsChannel.OnNewLevelLoaded(_currentLevel);
-    }
-    private void OnGameStarted()
-    {
         _currentLevel.OnGameStarted();
     }
     
@@ -56,8 +71,6 @@ public class LevelManager : MonoBehaviour
             }
             
             levelEventsChannel.OnLevelFinished();
-            //TODO Remove Later
-
         }
     }
 }

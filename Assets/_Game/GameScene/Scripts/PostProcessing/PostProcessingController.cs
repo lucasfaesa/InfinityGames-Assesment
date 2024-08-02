@@ -30,11 +30,13 @@ public class PostProcessingController : MonoBehaviour
     private void OnEnable()
     {
         levelEventsChannel.LevelFinished += OnLevelFinished;
+        levelEventsChannel.RequestToLoadNextLevel += ResetEffects;
     }
 
     private void OnDisable()
     {
         levelEventsChannel.LevelFinished -= OnLevelFinished;
+        levelEventsChannel.RequestToLoadNextLevel -= ResetEffects;
         _filmGrain.intensity.value = 0f;
     }
 
@@ -122,5 +124,10 @@ public class PostProcessingController : MonoBehaviour
         yield return new WaitForSeconds(_effectDuration + 0.1f);
         
         animationsEventChannel.OnFinishLevelPostProcessingAnimationsEnded();
+    }
+
+    private void ResetEffects()
+    {
+        _filmGrain.intensity.value = 0f;
     }
 }

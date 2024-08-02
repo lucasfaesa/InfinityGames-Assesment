@@ -8,21 +8,15 @@ public class GameManager : MonoBehaviour
     [Header("SOs")]
     [SerializeField] private GameEventsChannelSO gameEventsChannel;
     [SerializeField] private LevelEventsChannelSO levelEventsChannel;
-    [SerializeField] private CameraEventsChannelSO cameraEventsChannel;
+    
 
-    private void OnEnable()
-    {
-        cameraEventsChannel.CameraSizeAnimationEnded += StartGame;
-    }
-
-    private void OnDisable()
-    {
-        cameraEventsChannel.CameraSizeAnimationEnded -= StartGame;
-    }
-
-    void Start()
+    IEnumerator Start()
     {
         gameEventsChannel.OnGamePreparingToStart();
+
+        yield return new WaitForSeconds(0.5f);
+
+        StartGame();
     }
 
     private void StartGame()

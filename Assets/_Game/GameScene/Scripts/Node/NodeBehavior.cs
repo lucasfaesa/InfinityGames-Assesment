@@ -25,9 +25,8 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
     private bool _nodeConnected;
     private bool _randomizeRotationAtStart;
     private bool _gameStarted;
-    //TODO remove this
-    private bool _contacting;
-
+    private bool _randomized;
+    
     private float _minLightIntensity = 0.36f;
     private float _maxLightIntensity = 0.7f;
     
@@ -82,8 +81,7 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
         
         RotateNode(rotationAmount, 0.1f, () =>
         {
-            //if(_contacting)
-            //    RandomizeRotation();
+            _randomized = true;
         });
     }
     
@@ -118,15 +116,7 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
     
     private void OnNodeConnected()
     {
-        //TODO CHANGE THIS
-        if (!_gameStarted)
-        {
-           // _contacting = true;
-           // RandomizeRotation();
-            return;
-        }
-        
-        if (_nodeConnected) return;
+        if (!_randomized || _nodeConnected) return;
         
         _nodeConnected = true;
         
@@ -136,11 +126,10 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
 
     private void OnNodeDisconnected()
     {
-        //_contacting = false;
-        
-        if (!_nodeConnected) return;
+        if (!_randomized || !_nodeConnected) return;
         
         _nodeConnected = false;
+        
         nodeSprite.DOColor(_notConnectedColor, 0.5f).SetEase(Ease.InOutSine);
         nodeEventChannel.OnNodeConnectionStatusChanged(false, this);
     }

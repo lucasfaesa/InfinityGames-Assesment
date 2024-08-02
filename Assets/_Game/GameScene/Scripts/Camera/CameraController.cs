@@ -13,15 +13,19 @@ public class CameraController : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Camera mainCamera;
 
+    private Vector3 defaultCameraPos = new Vector3(0, 0, -10);
+    
     private void OnEnable()
     {
         levelEventsChannel.NewLevelLoaded += OnNewLevelLoaded;
+        levelEventsChannel.RequestToLoadNextLevel += OnRequestToLoadNextLevel;
         animationsEventChannel.FinishLevelPostProcessingAnimationsEnded += OffsetCameraUp;
     }
 
     private void OnDisable()
     {
         levelEventsChannel.NewLevelLoaded -= OnNewLevelLoaded;
+        levelEventsChannel.RequestToLoadNextLevel -= OnRequestToLoadNextLevel;
         animationsEventChannel.FinishLevelPostProcessingAnimationsEnded -= OffsetCameraUp;
     }
 
@@ -30,12 +34,19 @@ public class CameraController : MonoBehaviour
         cameraEventsChannel.OnCameraSizeAnimationStarted();
         
         DOTween.To(x => mainCamera.orthographicSize = x, mainCamera.orthographicSize,
-            level.GetLevelSettings().PreferredCameraSize, 2f).SetEase(Ease.OutBack)
-            .OnComplete(cameraEventsChannel.OnCameraSizeAnimationEnded);
+            level.GetLevelSettings().PreferredCameraSize, 1f).SetEase(Ease.OutBack)
+            .OnComplete(
+                cameraEventsChannel.OnCameraSizeAnimationEnded
+            );
     }
 
     private void OffsetCameraUp()
     {
        DOTween.Sequence().Append(mainCamera.transform.DOMoveY(-0.89f, 0.5f).SetEase(Ease.InOutSine)).PrependInterval(0.3f);
+    }
+
+    private void OnRequestToLoadNextLevel()
+    {
+        mainCamera.transform.position = defaultCameraPos;
     }
 }

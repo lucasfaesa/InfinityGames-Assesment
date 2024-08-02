@@ -8,7 +8,8 @@ public class LevelEventsChannelSO : ScriptableObject
 {
     public event Action<Level> NewLevelLoaded;
     public event Action LevelFinished;
-
+    public event Action RequestToLoadNextLevel;
+    
     public void OnNewLevelLoaded(Level level)
     {
         NewLevelLoaded?.Invoke(level);
@@ -17,5 +18,10 @@ public class LevelEventsChannelSO : ScriptableObject
     public void OnLevelFinished()
     {
         LevelFinished?.Invoke();
+    }
+
+    public void OnRequestToLoadNextLevel()
+    {
+        RequestToLoadNextLevel?.Invoke();
     }
 }
