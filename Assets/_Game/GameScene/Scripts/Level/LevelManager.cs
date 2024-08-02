@@ -40,6 +40,11 @@ public class LevelManager : MonoBehaviour
 
     private void OnLoadNextLevel()
     {
+        if (levelsManagerData.CheckIfNextLevelExists())
+        {
+            levelsManagerData.IncrementLevel();
+        }
+        
         uiEventsChannel.OnFadeOutStarted();
         
         InstantiateLevelNodes();
@@ -64,11 +69,6 @@ public class LevelManager : MonoBehaviour
         if (_currentLevel.AllNodesConnected() && !_levelFinished)
         {
             _levelFinished = true;
-            
-            if (levelsManagerData.CheckIfNextLevelExists())
-            {
-                levelsManagerData.IncrementLevel();
-            }
             
             levelEventsChannel.OnLevelFinished();
         }

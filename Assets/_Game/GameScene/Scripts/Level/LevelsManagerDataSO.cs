@@ -25,7 +25,10 @@ public class LevelsManagerDataSO : ScriptableObject
     public void IncrementLevel()
     {
         if (CurrentLevel > LevelsPrefabList.Count - 1)
+        {
+            _reachedLastLevel = true;
             return;
+        }
         
         CurrentLevel++;
     }
