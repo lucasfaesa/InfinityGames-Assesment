@@ -10,6 +10,8 @@ public class LevelsManagerDataSO : ScriptableObject
     [field:Space] 
     [field:SerializeField] public List<Level> LevelsPrefabList { get; set; } = new();
 
+    [field:SerializeField] public int LastLevelReached { get; set; } = 3;
+    
     private bool _reachedLastLevel;
     
     public Level GetCurrentLevel()
@@ -31,6 +33,7 @@ public class LevelsManagerDataSO : ScriptableObject
         }
         
         CurrentLevel++;
+        LastLevelReached = CurrentLevel;
     }
 
     public void Reset()
