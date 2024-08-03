@@ -21,7 +21,8 @@ public class MainMenuManager : MonoBehaviour
     private void Start()
     {
         int lastLevelReached = levelsManagerData.LastLevelReached;
-
+        levelsManagerData.CurrentLevel = lastLevelReached;
+        
         spotlight2D.transform.localPosition = levelButtonStructures[lastLevelReached].spotlightPos;
         
         for (int i = 1; i < levelButtonStructures.Count; i++)
@@ -58,6 +59,8 @@ public class MainMenuManager : MonoBehaviour
     public void OnLevelClicked(int index)
     {
         if (index > levelsManagerData.LastLevelReached) return;
+        
+        spotlight2D.transform.localPosition = levelButtonStructures[index].spotlightPos;
         
         levelsManagerData.CurrentLevel = index;
     }
