@@ -23,7 +23,7 @@ public class WinParticlesController : MonoBehaviour
 
     private void OnLevelFinished()
     {
-        if (levelsManagerData.CheckIfNextLevelExists())
+        if (!levelsManagerData.HasReachedLastLevel)
             return;
         
         winParticleSystem.Play();

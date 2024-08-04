@@ -11,6 +11,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private LevelsManagerDataSO levelsManagerData;
     [SerializeField] private NodeEventChannelSO nodeEventChannel;
     [SerializeField] private UIEventsChannelSO uiEventsChannel;
+    [SerializeField] private SaveSystemSO saveSystem;
     
     private Level _currentLevel;
     private bool _levelFinished;
@@ -40,11 +41,6 @@ public class LevelManager : MonoBehaviour
 
     private void OnLoadNextLevel()
     {
-        if (levelsManagerData.CheckIfNextLevelExists())
-        {
-            levelsManagerData.IncrementLevel();
-        }
-        
         uiEventsChannel.OnFadeOutStarted();
         
         InstantiateLevelNodes();
@@ -69,6 +65,10 @@ public class LevelManager : MonoBehaviour
         if (_currentLevel.AllNodesConnected() && !_levelFinished)
         {
             _levelFinished = true;
+            
+            levelsManagerData.IncrementLevel();
+            
+            saveSystem.SaveLevelsManagerData();
             
             levelEventsChannel.OnLevelFinished();
         }

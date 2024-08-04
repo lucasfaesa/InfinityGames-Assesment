@@ -12,7 +12,7 @@ public class LevelsManagerDataSO : ScriptableObject
 
     [field:SerializeField] public int LastLevelReached { get; set; } = 3;
     
-    private bool _reachedLastLevel;
+    public bool HasReachedLastLevel { get; set; }
     
     public Level GetCurrentLevel()
     {
@@ -21,27 +21,49 @@ public class LevelsManagerDataSO : ScriptableObject
 
     public bool CheckIfNextLevelExists()
     {
-        return CurrentLevel != LevelsPrefabList.Count - 1;
+        return CurrentLevel + 1 != LevelsPrefabList.Count;
     }
     
     public void IncrementLevel()
     {
-        if (CurrentLevel > LevelsPrefabList.Count - 1)
+        if (!CheckIfNextLevelExists())
         {
-            _reachedLastLevel = true;
+            HasReachedLastLevel = true;
             return;
         }
         
         CurrentLevel++;
-        LastLevelReached = CurrentLevel;
+        
+        if(CurrentLevel > LastLevelReached)
+            LastLevelReached = CurrentLevel ;
     }
 
     public void Reset()
     {
-        _reachedLastLevel = false;
+        HasReachedLastLevel = false;
+        CurrentLevel = 0;
+        LastLevelReached = 0;
         
         #if UNITY_EDITOR
             CurrentLevel = 0;
         #endif
+    }
+
+    public LevelsManagerSaveData GetSaveData()
+    {
+        return new LevelsManagerSaveData { CurrentLevel = this.CurrentLevel, LastLevelReached = this.LastLevelReached };
+    }
+
+    public void LoadSavedData(LevelsManagerSaveData data)
+    {
+        this.CurrentLevel = data.CurrentLevel;
+        this.LastLevelReached = data.LastLevelReached;
+    }
+
+
+    public struct LevelsManagerSaveData
+    {
+        public int CurrentLevel { get; set; }
+        public int LastLevelReached { get; set; }
     }
 }

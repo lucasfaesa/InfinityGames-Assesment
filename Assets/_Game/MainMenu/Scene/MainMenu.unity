@@ -2497,6 +2497,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiEventsChannel: {fileID: 11400000, guid: fd12492156af6ce4e85f0dfe10968af1, type: 2}
   levelsManagerData: {fileID: 11400000, guid: 48d139716a987b94a8d665fc08b1636f, type: 2}
+  saveSystem: {fileID: 11400000, guid: ba6437d970a834c4ead49f7018dbe9fd, type: 2}
   spotlight2D: {fileID: 1885290590}
   levelButtonStructures:
   - textNumber: {fileID: 840036871}
@@ -3200,7 +3201,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1939956597}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1853976335}
+        m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
+        m_MethodName: ClearSave
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1966429160
 GameObject:
   m_ObjectHideFlags: 0

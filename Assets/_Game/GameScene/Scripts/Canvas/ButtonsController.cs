@@ -28,11 +28,10 @@ public class ButtonsController : MonoBehaviour
     {
         animationsEventChannel.FinishLevelPostProcessingAnimationsEnded -= AnimateButtons;
     }
-
+    
     private void AnimateButtons()
     {
-        if(!levelsManagerData.CheckIfNextLevelExists())
-            nextLevelButton.SetActive(false);
+        nextLevelButton.SetActive(!levelsManagerData.HasReachedLastLevel);
         
         nextAndLeaveButtonsParent.gameObject.SetActive(true);
         DOTween.Sequence().Append(nextAndLeaveButtonsParent.DOAnchorPos(new Vector2(0, 386f), 0.5f).SetEase(Ease.InOutSine)).PrependInterval(0.3f);

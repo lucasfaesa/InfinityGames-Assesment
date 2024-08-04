@@ -13,6 +13,7 @@ public class MainMenuManager : MonoBehaviour
     [Header("SOs")] 
     [SerializeField] private UIEventsChannelSO uiEventsChannel;
     [SerializeField] private LevelsManagerDataSO levelsManagerData;
+    [SerializeField] private SaveSystemSO saveSystem;
 
     [Header("Components")] 
     [SerializeField] private Light2D spotlight2D;
@@ -20,10 +21,11 @@ public class MainMenuManager : MonoBehaviour
 
     private void Start()
     {
-        int lastLevelReached = levelsManagerData.LastLevelReached;
-        levelsManagerData.CurrentLevel = lastLevelReached;
+        saveSystem.LoadLevelsManagerData();
         
-        spotlight2D.transform.localPosition = levelButtonStructures[lastLevelReached].spotlightPos;
+        int lastLevelReached = levelsManagerData.LastLevelReached;
+        
+        spotlight2D.transform.localPosition = levelButtonStructures[levelsManagerData.CurrentLevel].spotlightPos;
         
         for (int i = 1; i < levelButtonStructures.Count; i++)
         {
@@ -70,6 +72,20 @@ public class MainMenuManager : MonoBehaviour
         float randomIntensity = Random.Range(0.045f, 0.09f);
         DOTween.To(x => spotlight2D.volumeIntensity = x, spotlight2D.volumeIntensity, randomIntensity, 0.2f)
             .OnComplete(FlickLight);
+    }
+
+    public void ClearSave()
+    {
+        void DoFadeIn()
+        {
+            uiEventsChannel.FadeInCompleted -= DoFadeIn;
+            saveSystem.DeleteLevelsManagerData();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        uiEventsChannel.FadeInCompleted += DoFadeIn;
+        
+        uiEventsChannel.OnFadeInStarted();
     }
 
 
