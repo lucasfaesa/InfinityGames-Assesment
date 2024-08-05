@@ -110,8 +110,8 @@ QualitySettings:
     excludedTargetPlatforms:
     - Standalone
     - Server
-    - WebGL
     - Android
+    - WebGL
   - serializedVersion: 3
     name: Medium
     pixelLightCount: 1

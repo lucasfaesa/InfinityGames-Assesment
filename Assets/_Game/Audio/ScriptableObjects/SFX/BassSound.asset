@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: BassSound
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: 3b4a7b0aa9a33d34aa8c377f66f6427a, type: 3}
-  volume: 0.452
+  volume: 0.506
