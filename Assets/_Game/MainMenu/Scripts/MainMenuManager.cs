@@ -63,6 +63,8 @@ public class MainMenuManager : MonoBehaviour
 
     public void GoToGameScene()
     {
+        audioEventsChannel.OnPlayAudioClip(clickSoundEffect);
+        
         void DoFadeIn()
         {
             uiEventsChannel.FadeInCompleted -= DoFadeIn;
@@ -95,6 +97,8 @@ public class MainMenuManager : MonoBehaviour
 
     public void ClearSave()
     {
+        audioEventsChannel.OnPlayAudioClip(clickSoundEffect);
+        
         void DoFadeIn()
         {
             uiEventsChannel.FadeInCompleted -= DoFadeIn;

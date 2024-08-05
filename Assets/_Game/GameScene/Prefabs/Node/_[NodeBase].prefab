@@ -193,10 +193,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeEventChannel: {fileID: 11400000, guid: 0f193312a8a8f574aba263a0f2313341, type: 2}
   levelEventsChannel: {fileID: 11400000, guid: 3dd537151b3247f418140b96e8aaba57, type: 2}
+  audioEventsChannel: {fileID: 11400000, guid: f45bd823870f41340b17a1faea224894, type: 2}
   nodeTransform: {fileID: 1921983607310564751}
   nodeSprite: {fileID: 7959565917392644722}
   endPointCollidersParent: {fileID: 105836957287414437}
   nodeLight: {fileID: 0}
+  switchAudioClip: {fileID: 11400000, guid: 8eaa70c1900266d4dab96378321845b0, type: 2}
+  connectAudioClip: {fileID: 11400000, guid: 4729826ac7993394081a7d6b4c78e4f3, type: 2}
 --- !u!1 &8034967807787987782
 GameObject:
   m_ObjectHideFlags: 0

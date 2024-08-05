@@ -11,10 +11,14 @@ public class PostProcessingController : MonoBehaviour
     [Header("SOs")] 
     [SerializeField] private LevelEventsChannelSO levelEventsChannel;
     [SerializeField] private AnimationsEventChannelSO animationsEventChannel;
+    [SerializeField] private AudioEventsChannel _audioEventsChannel;
     
     [Header("Components")]
     [SerializeField] private VolumeProfile postProcessingVolumeProfile;
 
+    [Header("Audio")] 
+    [SerializeField] private AudioClipSO bassAudioClip;
+    
     private readonly float _effectDuration = 0.3f; 
     
     private readonly float _lensDistortionTargetIntensity = 0.8f; 
@@ -55,6 +59,7 @@ public class PostProcessingController : MonoBehaviour
         animationsEventChannel.OnFinishLevelAnimationsStarted();
         animationsEventChannel.OnFinishLevelPostProcessingAnimationsStarted();
         
+        _audioEventsChannel.OnPlayAudioClip(bassAudioClip);
         LensDistortionAnimation();
     }
 

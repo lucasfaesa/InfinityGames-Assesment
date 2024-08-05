@@ -441,9 +441,11 @@ MonoBehaviour:
   uiEventsChannel: {fileID: 11400000, guid: fd12492156af6ce4e85f0dfe10968af1, type: 2}
   levelsManagerData: {fileID: 11400000, guid: 48d139716a987b94a8d665fc08b1636f, type: 2}
   levelEventsChannel: {fileID: 11400000, guid: 3dd537151b3247f418140b96e8aaba57, type: 2}
+  audioEventsChannel: {fileID: 11400000, guid: f45bd823870f41340b17a1faea224894, type: 2}
   uiCanvasCanvasGroup: {fileID: 384234163}
   nextAndLeaveButtonsParent: {fileID: 895846242}
   nextLevelButton: {fileID: 288597800}
+  clickAudioClip: {fileID: 11400000, guid: 1f7d15286d33cf44185e9309d8d160f6, type: 2}
 --- !u!224 &217531338 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6698782661416368697, guid: 7a10377d74252324c8b22c86e5e5c618, type: 3}
@@ -1260,7 +1262,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelEventsChannel: {fileID: 11400000, guid: 3dd537151b3247f418140b96e8aaba57, type: 2}
   animationsEventChannel: {fileID: 11400000, guid: 4717b3c8b332f0a4e8a2cc5725c892d9, type: 2}
+  _audioEventsChannel: {fileID: 11400000, guid: f45bd823870f41340b17a1faea224894, type: 2}
   postProcessingVolumeProfile: {fileID: 11400000, guid: 09a6783ca44317e42a9faac1315c1fb0, type: 2}
+  bassAudioClip: {fileID: 11400000, guid: c906600f7d59e9d4fadf45ecb61fb915, type: 2}
 --- !u!1 &1544583444
 GameObject:
   m_ObjectHideFlags: 0
@@ -6494,7 +6498,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelEventsChannel: {fileID: 11400000, guid: 3dd537151b3247f418140b96e8aaba57, type: 2}
   levelsManagerData: {fileID: 11400000, guid: 48d139716a987b94a8d665fc08b1636f, type: 2}
+  audioEventsChannel: {fileID: 11400000, guid: f45bd823870f41340b17a1faea224894, type: 2}
   winParticleSystem: {fileID: 2919895715119807926}
+  partyHornAudioClip: {fileID: 11400000, guid: ba1cdf442d6362046a34907e50dbb99a, type: 2}
 --- !u!1001 &8555536718135595905
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
     [Header("SOs")] 
     [SerializeField] private NodeEventChannelSO nodeEventChannel;
     [SerializeField] private LevelEventsChannelSO levelEventsChannel;
+    [SerializeField] private AudioEventsChannel audioEventsChannel;
     [Header("Components")] 
     [SerializeField] private Transform nodeTransform;
     [SerializeField] private SpriteRenderer nodeSprite;
@@ -20,6 +21,9 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
     [SerializeField] private GameObject endPointCollidersParent;
     [Space] 
     [SerializeField] private Light2D nodeLight;
+    [Header("Audio")] 
+    [SerializeField] private AudioClipSO switchAudioClip;
+    [SerializeField] private AudioClipSO connectAudioClip;
     
     private bool _animating;
     private bool _nodeConnected;
@@ -94,11 +98,14 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
     {
         if (_animating) return;
         
+        if(_randomized)
+            audioEventsChannel.OnPlayAudioClip(switchAudioClip);
+        
         _animating = true;
         var currentLocalRotation = nodeTransform.localRotation.eulerAngles;
         var newRotation = new Vector3(currentLocalRotation.x, currentLocalRotation.y, currentLocalRotation.z + rotateAmount);
         
-        nodeTransform.DOLocalRotate(newRotation, duration, RotateMode.FastBeyond360).SetEase(Ease.OutBack)
+        nodeTransform.DOLocalRotate(newRotation, duration, RotateMode.FastBeyond360).SetEase(Ease.OutBack, 1.3f)
             .OnComplete(() =>
             {
                 _animating = false;
@@ -119,7 +126,7 @@ public class NodeBehavior : MonoBehaviour, IPointerClickHandler
         if (!_randomized || _nodeConnected) return;
         
         _nodeConnected = true;
-        
+        audioEventsChannel.OnPlayAudioClip(connectAudioClip);
         nodeSprite.DOColor(_connectedColor, 0.5f).SetEase(Ease.InOutSine);
         nodeEventChannel.OnNodeConnectionStatusChanged(true, this);
     }

@@ -12,10 +12,13 @@ public class ButtonsController : MonoBehaviour
     [SerializeField] private UIEventsChannelSO uiEventsChannel;
     [SerializeField] private LevelsManagerDataSO levelsManagerData;
     [SerializeField] private LevelEventsChannelSO levelEventsChannel;
+    [SerializeField] private AudioEventsChannel audioEventsChannel;
     [Header("Components")] 
     [SerializeField] private CanvasGroup uiCanvasCanvasGroup;
     [SerializeField] private RectTransform nextAndLeaveButtonsParent;
     [SerializeField] private GameObject nextLevelButton;
+    [Header("Audio")] 
+    [SerializeField] private AudioClipSO clickAudioClip;
 
     private Vector2 nextAndLeaveButtonsDefaultPos = new Vector2(0, -330f);
     
@@ -39,6 +42,7 @@ public class ButtonsController : MonoBehaviour
 
     public void GoToNextLevel()
     {
+        audioEventsChannel.OnPlayAudioClip(clickAudioClip);
         void OnFadeInCompleted()
         {
             uiEventsChannel.FadeInCompleted -= OnFadeInCompleted;
@@ -56,6 +60,7 @@ public class ButtonsController : MonoBehaviour
     public void ReturnToMenu()
     {
         //subscribing and unsubscribing directly
+        audioEventsChannel.OnPlayAudioClip(clickAudioClip);
         void OnFadeInCompleted()
         {
             uiEventsChannel.FadeInCompleted -= OnFadeInCompleted;
