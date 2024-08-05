@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
@@ -14,18 +15,34 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private UIEventsChannelSO uiEventsChannel;
     [SerializeField] private LevelsManagerDataSO levelsManagerData;
     [SerializeField] private SaveSystemSO saveSystem;
-
+    [SerializeField] private AudioEventsChannel audioEventsChannel;
     [Header("Components")] 
     [SerializeField] private Light2D spotlight2D;
     [SerializeField] private List<LevelButtonStructure> levelButtonStructures = new(5);
+    [Header("Audios")] 
+    [SerializeField] private AudioClipSO clickSoundEffect;
 
-    private void Start()
+    [Header("ShowUp Components")] 
+    [SerializeField] private List<GameObject> componentsToShowUp;
+    [SerializeField] private ParticleSystem nodesParticlesEffect;
+
+    private void Awake()
+    {
+        componentsToShowUp.ForEach(x=>x.SetActive(false));
+    }
+
+    private IEnumerator Start()
     {
         saveSystem.LoadLevelsManagerData();
         
         int lastLevelReached = levelsManagerData.LastLevelReached;
+
+        yield return new WaitForSeconds(1.6f);
+        componentsToShowUp.ForEach(x=>x.SetActive(true));
+        nodesParticlesEffect.Play();
         
         spotlight2D.transform.localPosition = levelButtonStructures[levelsManagerData.CurrentLevel].spotlightPos;
+        spotlight2D.gameObject.SetActive(true);
         
         for (int i = 1; i < levelButtonStructures.Count; i++)
         {
@@ -60,8 +77,10 @@ public class MainMenuManager : MonoBehaviour
 
     public void OnLevelClicked(int index)
     {
+        
         if (index > levelsManagerData.LastLevelReached) return;
         
+        audioEventsChannel.OnPlayAudioClip(clickSoundEffect);
         spotlight2D.transform.localPosition = levelButtonStructures[index].spotlightPos;
         
         levelsManagerData.CurrentLevel = index;
